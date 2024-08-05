@@ -21,6 +21,7 @@ mongoose
   });
 
 app.use("/api/user", require("./routes/user.route"));
+app.use("/api/auth", require("./routes/auth.route"));
 app.listen(PROT, () => {
   console.log("Server running on port 3000");
 });
