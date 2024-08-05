@@ -1,18 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 export default function Signin() {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
   const handleSubmit = async (e) => {
     try {
-      setLoading(true);
-      setError(null);
+      dispatch(signInStart());
       e.preventDefault();
       const res = await fetch("http://localhost:3000/api/auth/signin", {
         method: "POST",
@@ -21,45 +26,45 @@ export default function Signin() {
       });
 
       const data = await res.json();
-      console.log(data);
-      setLoading(false);
+      dispatch(signInSuccess(data));
       if (!res.ok) {
-        setError(data.message);
+        dispatch(signInFailure(data.message));
+        return;
       }
       if (res.ok) {
         navigate("/");
       }
     } catch (error) {
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
   return (
-    <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
+    <div className="max-w-lg p-3 mx-auto">
+      <h1 className="text-3xl font-semibold text-center my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
           type="text"
           placeholder="Email Address"
           id="email"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="p-3 rounded-lg bg-slate-100"
           onChange={handleChanges}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="p-3 rounded-lg bg-slate-100"
           onChange={handleChanges}
         />
 
         <button
           disabled={loading}
-          className="bg-slate-700 disabled:opacity-85  hover:opacity-95 text-white p-3 rounded-lg uppercase"
+          className="p-3 text-white uppercase rounded-lg bg-slate-700 disabled:opacity-85 hover:opacity-95"
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
         {error && (
-          <p className="text-red-500 my-1 bg-red-50 p-2 text-center text-sm">
+          <p className="p-2 my-1 text-sm text-center text-red-500 bg-red-50">
             {error}
           </p>
         )}
