@@ -7,14 +7,17 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 export default function Signin() {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.user);
+
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     try {
       dispatch(signInStart());
@@ -26,18 +29,17 @@ export default function Signin() {
       });
 
       const data = await res.json();
-      dispatch(signInSuccess(data));
       if (!res.ok) {
         dispatch(signInFailure(data.message));
         return;
       }
-      if (res.ok) {
-        navigate("/");
-      }
+      dispatch(signInSuccess(data));
+      navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
   };
+
   return (
     <div className="max-w-lg p-3 mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Sign In</h1>
@@ -72,7 +74,7 @@ export default function Signin() {
       <div className="flex gap-2 mt-5">
         <p>Don't have an account?</p>
         <span className="text-blue-500">
-          <Link to={"/sign-in"}>Sign up</Link>
+          <Link to={"/sign-up"}>Sign up</Link>
         </span>
       </div>
     </div>

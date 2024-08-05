@@ -31,39 +31,39 @@ export default function Signup() {
     }
   };
   return (
-    <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
+    <div className="max-w-lg p-3 mx-auto">
+      <h1 className="text-3xl font-semibold text-center my-7">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
           type="text"
           placeholder="Username"
           id="username"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="p-3 rounded-lg bg-slate-100"
           onChange={handleChanges}
         />
         <input
           type="text"
           placeholder="Email Address"
           id="email"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="p-3 rounded-lg bg-slate-100"
           onChange={handleChanges}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-slate-100 p-3 rounded-lg"
+          className="p-3 rounded-lg bg-slate-100"
           onChange={handleChanges}
         />
 
         <button
           disabled={loading}
-          className="bg-slate-700 disabled:opacity-85  hover:opacity-95 text-white p-3 rounded-lg uppercase"
+          className="p-3 text-white uppercase rounded-lg bg-slate-700 disabled:opacity-85 hover:opacity-95"
         >
           {loading ? "Loading..." : "Sign up"}
         </button>
         {error && (
-          <p className="text-red-500 my-1 bg-red-50 p-2 text-center text-sm">
+          <p className="p-2 my-1 text-sm text-center text-red-500 bg-red-50">
             {error}
           </p>
         )}
