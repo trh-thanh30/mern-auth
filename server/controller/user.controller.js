@@ -6,6 +6,8 @@ const test = (req, res) => {
   });
 };
 const updateUser = async (req, res) => {
+  console.log(req.user.id);
+  console.log(req.params.id);
   if (req.user.id !== req.params.id) {
     return res
       .status(403)
@@ -27,7 +29,7 @@ const updateUser = async (req, res) => {
       },
       { new: true }
     );
-    const {password, ...rest} = updatedUser._doc
+    const { password, ...rest } = updatedUser._doc;
     return res.status(200).json(rest);
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

@@ -10,7 +10,12 @@ const PROT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from your frontend
+    credentials: true, // Allow credentials (cookies)
+  })
+);
 
 mongoose
   .connect(process.env.MONGODB_URI)

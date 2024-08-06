@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
-
+  console.log(currentUser);
   return (
     <div className="bg-slate-200">
       <div className="flex items-center justify-between max-w-6xl p-3 mx-auto">
@@ -20,7 +21,7 @@ export default function Header() {
             {currentUser ? (
               <img
                 alt="profile"
-                src={currentUser?.rest.profilePicture}
+                src={currentUser.profilePicture}
                 className="object-cover rounded-full w-7 h-7"
               ></img>
             ) : (

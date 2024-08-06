@@ -54,7 +54,7 @@ const signin = async (req, res, next) => {
     res
       .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
       .status(200)
-      .json({ message: "Logged in successfully", rest });
+      .json(rest);
   } catch (error) {
     if (error.name === "ValidationError") {
       const errors = Object.values(error.errors).map((err) => err.message);
@@ -77,7 +77,7 @@ const google = async (req, res) => {
           expires: expiryDate,
         })
         .status(200)
-        .json({ message: "Logged in successfully", rest });
+        .json(rest);
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
@@ -100,7 +100,7 @@ const google = async (req, res) => {
           expires: expiryDate,
         })
         .status(200)
-        .json({ message: "Logged in successfully", user: newUser });
+        .json(newUser);
     }
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
