@@ -35,4 +35,17 @@ const updateUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-module.exports = { test, updateUser };
+const deleteUser = async (req, res) => {
+  if (req.user.id !== req.params.id) {
+    return res
+      .status(403)
+      .json({ message: "You can only delete your own profile" });
+  }
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    return res.status(403).json({ message: "Internal server error" });
+  }
+};
+module.exports = { test, updateUser, deleteUser };
