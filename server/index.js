@@ -2,13 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
+const cookieParser = require("cookie-parser");
 dotenv.config();
 
 const app = express();
 const PROT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 mongoose

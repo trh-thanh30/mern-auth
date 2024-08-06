@@ -56,7 +56,7 @@ export default function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={currentUser?.rest.profilePicture}
+          src={formData.profilePicture || currentUser?.rest.profilePicture}
           alt="profile"
           className="self-center object-cover w-24 h-24 mt-2 rounded-full cursor-pointer"
         />
@@ -66,7 +66,9 @@ export default function Profile() {
           ) : imagePercent > 0 && imagePercent < 100 ? (
             <span className="text-sm text-slate-700">{`Uploading ${imagePercent} %`}</span>
           ) : imagePercent === 100 ? (
-            <span className="text-sm text-green-500">Image uploaded succesfully</span>
+            <span className="text-sm text-green-500">
+              Image uploaded succesfully
+            </span>
           ) : null}
         </p>
         <input
