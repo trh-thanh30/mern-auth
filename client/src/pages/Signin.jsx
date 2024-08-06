@@ -7,6 +7,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import OAuth from "../components/OAuth";
 
 export default function Signin() {
   const [formData, setFormData] = useState({});
@@ -30,6 +31,7 @@ export default function Signin() {
 
       const data = await res.json();
       if (!res.ok) {
+        ``;
         dispatch(signInFailure(data.message));
         return;
       }
@@ -65,6 +67,7 @@ export default function Signin() {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <OAuth></OAuth>
         {error && (
           <p className="p-2 my-1 text-sm text-center text-red-500 bg-red-50">
             {error}
